@@ -1,19 +1,27 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if(s.size()!=t.size()){
+        if (s.size() != t.size()) {
             return false;
         }
-        vector<int> h(26);
-        for(int i=0; i<s.size(); i++){
-            h[s[i]-'a']++;
+
+        unordered_map<char, int> charCount;
+
+        // Count the characters in the first string
+        for (char c : s) {
+            charCount[c]++;
         }
-        for(int i=0; i<t.size(); i++){
-            int x=--h[t[i]-'a'];
-            if(x<0){
+
+        // Decrease the count for the characters in the second string
+        for (char c : t) {
+            charCount[c]--;
+            // If the count goes negative, it means t has more of this character than s
+            if (charCount[c] < 0) {
                 return false;
             }
         }
+
+        // If we get here, all counts should be zero
         return true;
     }
 };
