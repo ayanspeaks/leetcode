@@ -1,40 +1,28 @@
 class Solution {
 public:
-    bool wordPattern(string pattern, string s) {
-        vector<string> v;
-		int i = 0;
-		string temp = "";
-		while(i < s.size()){
-			if(s[i] == ' '){
-				v.push_back(temp);
-				temp = "";
-			}
-			else{
-				temp += s[i];
-			}
-			i++;
-		}
-		v.push_back(temp);
+    bool wordPattern(string p, string s) 
+    {
+        vector<string>v;
+        string a;
+        stringstream ss(s);
+        while(ss>>a) v.push_back(a);
 
-		if(v.size() != pattern.size()){
-			return false;
-		}
-		unordered_map<char, string> m;
-		set<string> st;
-		for(int i = 0; i < pattern.size(); i++){
-			if(m.find(pattern[i]) != m.end()){ //pattern in  hashmap
-                if(m[pattern[i]] != v[i]){
-					return false;
-				}
-			}
-			else{
-				if(st.count(v[i]) > 0){
-					return false;
-				}
-				m[pattern[i]] = v[i];
-				st.insert(v[i]);
-			}
-		}
-		return true;
+        if(p.size() != v.size()) return false;
+
+        map<char,string>mp;
+        map<string,char>mp2;
+        int i = 0, n = p.size();
+        while(i<n)
+        {
+            if(mp[p[i]].empty()) 
+            {
+                if(mp2[v[i]] != NULL) return false;
+                mp[p[i]] = v[i];
+                mp2[v[i]] = p[i];
+            }
+            else if(mp[p[i]] != v[i]) return false;
+            i++;
+        }
+        return true;
     }
 };
