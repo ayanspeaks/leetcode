@@ -18,7 +18,7 @@ public:
         ListNode* prev=head;
         ListNode* nex=head->next->next;
         ListNode* cur=head->next;
-        int index=0;
+        int index=1;
         vector<int> points;
         while(nex){
             if(cur->val<prev->val && cur->val<nex->val){
