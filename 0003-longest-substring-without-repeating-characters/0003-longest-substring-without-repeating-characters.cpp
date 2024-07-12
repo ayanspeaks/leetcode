@@ -9,7 +9,7 @@ public:
             if(it != chars.end() && it->second >= l){
                 l = it->second+1;
             } else {
-                result = std::max(result,r-l+1);
+                result = max(result,r-l+1);
             }
             chars[s[r]] = r;
             r++;
