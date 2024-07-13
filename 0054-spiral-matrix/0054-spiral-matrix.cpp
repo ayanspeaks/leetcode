@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         vector<int> res;
-        if(matrix.empty() || matrix[0].empty()) return res;
+        //if(matrix.empty() || matrix[0].empty()) return res;
         
         int n = matrix.size(), m = matrix[0].size();
         int up = 0, down = n-1, left = 0, right = m-1; 
