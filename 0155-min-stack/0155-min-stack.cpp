@@ -1,46 +1,24 @@
 class MinStack {
 public:
-    typedef struct node{
-        int v;
-        int minUntilNow;
-        node* next;
-    }node;
-
-    MinStack() : topN(nullptr){
-        
-    }
+    vector< pair<int,int> > s;
+	
+    MinStack() { }
     
     void push(int val) {
-        node* n = new node;
-        n->v = n->minUntilNow = val;
-        n->next = nullptr;
-        
-        if(topN == nullptr){
-            topN = n;
-        }
-
-        else{
-            n->minUntilNow = min(n->v,topN->minUntilNow);
-            n->next = topN;
-            topN = n;
-        }
+        if(s.empty())
+            s.push_back({val,val});
+        else
+            s.push_back({val,min(s.back().second,val)});    
     }
     
-    void pop() {
-        topN = topN->next;
-    }
+    void pop() { s.pop_back(); }
     
-    int top() {
-        return topN->v;
-    }
+    int top() { return s.back().first; }
     
-    int getMin() {
-        return topN->minUntilNow;
-    }
-
-    private:
-    node* topN;
+    int getMin() { return s.back().second; }
 };
+
+
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack* obj = new MinStack();
