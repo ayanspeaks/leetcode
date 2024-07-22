@@ -12,12 +12,15 @@
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
+        // Base case: if the tree is empty, return nullptr
         if (root == nullptr) return nullptr;
         
+        // Swap the left and right subtrees
         TreeNode* temp = root->left;
         root->left = invertTree(root->right);
         root->right = invertTree(temp);
         
+        // Return the root of the inverted tree
         return root;
     }
 };
