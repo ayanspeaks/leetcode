@@ -11,30 +11,38 @@
  */
 class Solution {
 public:
-    TreeNode* ok(vector<int> &in,vector<int> &po,int &idx,int st,int ed,unordered_map<int,int> &mymap){
-        if(idx<0 || st>ed){
-            return NULL;
-        }
-        
-        int mid=mymap[po[idx]];
-        
-        TreeNode* root=new TreeNode(po[idx--]);
-        
-        root->right=ok(in,po,idx,mid+1,ed,mymap);
-        
-        root->left=ok(in,po,idx,st,mid-1,mymap);
-        
+    TreeNode* buildTreeHelper(vector<int>& inorder, vector<int>& postorder, int& idx, int start, int end, unordered_map<int, int>& inMap) {
+        // Base case: if the current subtree is empty, return nullptr
+        if (idx < 0 || start > end) return nullptr;
+
+        // Get the current root value from postorder traversal
+        int rootVal = postorder[idx--];
+        // Create the root node
+        TreeNode* root = new TreeNode(rootVal);
+
+        // Find the index of the current root in the inorder traversal
+        int inIndex = inMap[rootVal];
+
+        // Recursively build the right subtree
+        root->right = buildTreeHelper(inorder, postorder, idx, inIndex + 1, end, inMap);
+        // Recursively build the left subtree
+        root->left = buildTreeHelper(inorder, postorder, idx, start, inIndex - 1, inMap);
+
+        // Return the root node
         return root;
     }
+
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        unordered_map<int,int> mymap;
-        
-        for(int i=0;i<inorder.size();i++){
-            mymap[inorder[i]]=i;
+        // Create a hashmap for quick index lookup in inorder traversal
+        unordered_map<int, int> inMap;
+        for (int i = 0; i < inorder.size(); i++) {
+            inMap[inorder[i]] = i;
         }
-        
-        int idx=postorder.size()-1;
-        
-        return ok(inorder,postorder,idx,0,inorder.size()-1,mymap);
+
+        // Start from the last element in the postorder array
+        int idx = postorder.size() - 1;
+
+        // Call the helper function to build the tree
+        return buildTreeHelper(inorder, postorder, idx, 0, inorder.size() - 1, inMap);
     }
 };
