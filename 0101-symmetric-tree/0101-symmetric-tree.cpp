@@ -11,14 +11,20 @@
  */
 class Solution {
 public:
-    bool c(TreeNode* left, TreeNode* right){
-        if(!left || !right){
-            return left==right;
+    bool c(TreeNode* left, TreeNode* right) {
+        // Base case: if either node is null, they must both be null to be symmetric
+        if (!left || !right) {
+            return left == right;
         }
-        if(left->val!=right->val)return false;
-        return c(left->left,right->right) && c(left->right,right->left);
+        // Check if the current nodes' values are equal
+        if (left->val != right->val) return false;
+        // Recursively check the left subtree of left with the right subtree of right
+        // and the right subtree of left with the left subtree of right
+        return c(left->left, right->right) && c(left->right, right->left);
     }
+    
     bool isSymmetric(TreeNode* root) {
-        return c(root,root);
+        // A tree is symmetric if the left and right subtrees are mirror images
+        return c(root, root);
     }
 };
