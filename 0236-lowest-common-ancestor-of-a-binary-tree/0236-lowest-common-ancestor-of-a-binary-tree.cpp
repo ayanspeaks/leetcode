@@ -10,12 +10,19 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(!root||root==p||root==q) return root;
-        TreeNode* left=lowestCommonAncestor(root->left,p,q);
-        TreeNode* right=lowestCommonAncestor(root->right,p,q);
-        if(left==NULL) return right;
-        else if(right==NULL) return left;
-        else return root;//if both are not null that means they returned something 
-        // so this root will be our ans
+        // Base case: if root is null or root is one of p or q, return root
+        if (!root || root == p || root == q) return root;
+
+        // Search for LCA in the left subtree
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        // Search for LCA in the right subtree
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+
+        // If both left and right are non-null, root is the LCA
+        if (left && right) return root;
+        // If left is null, it means both p and q are in the right subtree
+        if (!left) return right;
+        // If right is null, it means both p and q are in the left subtree
+        return left;
     }
 };
