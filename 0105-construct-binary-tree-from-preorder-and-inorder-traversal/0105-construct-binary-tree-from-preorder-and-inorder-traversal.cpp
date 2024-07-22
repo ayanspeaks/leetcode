@@ -11,20 +11,22 @@
  */
 class Solution {
 public:
-    int preInd = 0;
+    int preInd = 0;  // Index for current root in preorder traversal
     unordered_map<int, int> inMap;  // HashMap to store inorder value -> index mapping
-    
+
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         // Build the hashmap to quickly find the root position in inorder array
         for (int i = 0; i < inorder.size(); ++i) {
             inMap[inorder[i]] = i;
         }
+        // Call the recursive function to construct the tree
         return createTree(preorder, 0, inorder.size() - 1);
     }
 
     TreeNode* createTree(vector<int>& preorder, int start, int end) {
+        // Base case: if the current subtree is empty
         if (start > end) {
-            return NULL;
+            return nullptr;
         }
 
         // The current root value is the current element in preorder
