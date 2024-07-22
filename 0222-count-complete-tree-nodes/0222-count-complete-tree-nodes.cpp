@@ -11,11 +11,16 @@
  */
 class Solution {
 public:
-    int solve(TreeNode* root){
-        if(root==NULL) return 0;
-        return 1+solve(root->left)+solve(root->right);
+    int solve(TreeNode* root) {
+        // Base case: if the node is null, return 0
+        if (root == nullptr) return 0;
+        
+        // Recursively count the nodes in the left and right subtrees and add 1 for the current node
+        return 1 + solve(root->left) + solve(root->right);
     }
+
     int countNodes(TreeNode* root) {
+        // Use the helper function to count the nodes in the tree
         return solve(root);
     }
 };
