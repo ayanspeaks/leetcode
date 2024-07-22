@@ -12,13 +12,19 @@
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
-        if(root==NULL){
+        // Base case: if the tree is empty, there is no path
+        if (root == nullptr) {
             return false;
         }
-        if(root->left==NULL && root->right==NULL){
+
+        // Check if the current node is a leaf node
+        if (root->left == nullptr && root->right == nullptr) {
+            // If it's a leaf, check if the path sum equals the target sum
             return root->val == targetSum;
         }
-        return hasPathSum(root->left,targetSum-root->val) || 
-               hasPathSum(root->right,targetSum-root->val);
+
+        // Recursively check the left and right subtrees with the updated target sum
+        return hasPathSum(root->left, targetSum - root->val) || 
+               hasPathSum(root->right, targetSum - root->val);
     }
 };
