@@ -11,18 +11,30 @@
  */
 class Solution {
 public:
-    int maxi = 0;
-    void solve(TreeNode* root, int prev, int ans){
-        if(root == 0) return;
-        ans += 1;
-        maxi = max(maxi,ans);
-        if(prev == 1 || prev == 0) solve(root->right,1,0);
-        else solve(root->right,1,ans);
-        if(prev == -1 || prev  == 0) solve(root->left,-1,0);
-        else solve(root->left,-1,ans);
+    int maxi = 0;  // Global variable to store the maximum length of the zigzag path
+
+    void solve(TreeNode* root, int direction, int length) {
+        if (!root) return;  // Base case: if the node is null, return
+        
+        maxi = max(maxi, length);  // Update the maximum length if the current path is longer
+        
+        // If the previous move was to the right, move left and increment the length
+        if (direction == 1) {
+            solve(root->left, -1, length + 1);
+            solve(root->right, 1, 1);  // Reset the length for a right move
+        }
+        // If the previous move was to the left, move right and increment the length
+        else {
+            solve(root->right, 1, length + 1);
+            solve(root->left, -1, 1);  // Reset the length for a left move
+        }
     }
+
     int longestZigZag(TreeNode* root) {
-        solve(root,0,-1);
-        return maxi;
+        if (root) {
+            solve(root->left, -1, 1);  // Start DFS by moving left from the root
+            solve(root->right, 1, 1);  // Start DFS by moving right from the root
+        }
+        return maxi;  // Return the maximum length of the zigzag path
     }
 };
