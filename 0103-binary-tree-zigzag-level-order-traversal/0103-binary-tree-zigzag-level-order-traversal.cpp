@@ -11,28 +11,38 @@
  */
 class Solution {
 public:
-    vector<vector<int> > zigzagLevelOrder(TreeNode* root) {
-        vector<vector<int>> ans;
-        if(!root) return ans;
-        queue<TreeNode*> q; 
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        if (!root) return result; // If the root is null, return an empty vector
+
+        queue<TreeNode*> q;
         q.push(root);
-        int flag=0; 
-        while(!q.empty()){
-            int size=q.size();
-            vector<int> level(size);
-            for(int i=0;i<size;i++){
-                TreeNode* node=q.front();
+        bool leftToRight = true; // Flag to control the zigzag pattern
+
+        while (!q.empty()) {
+            int levelSize = q.size();
+            vector<int> level(levelSize);
+
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* node = q.front();
                 q.pop();
-                if(flag==0){
-                    level[i]=node->val; 
-                }
-                else level[size-1-i]=node->val; 
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
+
+                // Place node value in the appropriate position based on zigzag pattern
+                int index = leftToRight ? i : (levelSize - 1 - i);
+                level[index] = node->val;
+
+                // Enqueue child nodes for the next level
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
             }
-            flag=!flag;
-            ans.push_back(level);
+
+            // Toggle the direction for the next level
+            leftToRight = !leftToRight;
+
+            // Add the current level to the result
+            result.push_back(level);
         }
-        return ans;
+
+        return result;
     }
 };
