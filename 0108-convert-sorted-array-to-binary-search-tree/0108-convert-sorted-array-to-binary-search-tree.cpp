@@ -12,30 +12,30 @@
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        // Base condition...
-        if (nums.size() == 0)
-			return NULL;
-        // Call the function recursively...
-		return sortedArrayToBST(nums, 0, nums.size() - 1);
+        // Call the helper function to convert the entire range of the array into a BST
+        return sortedArrayToBST(nums, 0, nums.size() - 1);
     }
-    // Create another function which will convert any particular range of given nums array...
-    // & return its corresponding BST root node....
-	TreeNode* sortedArrayToBST(vector<int>& nums, int beg, int end) {
-        // If beg > end, return NULL, as we receive a wrong range...
-		if (beg > end)
-			return NULL;
-        // If beg == end, return a new node having value same as nums[beg]... 
-        if(beg == end)
-            return new TreeNode(nums[beg]);
-        // set the middle node...
-		int mid = (beg + end) / 2;
-        // Initialise root node with value same as nums[mid]
-		TreeNode* root = new TreeNode(nums[mid]);
-        // Assign left subtrees as the same function called on left subranges...
-		root->left = sortedArrayToBST(nums, beg, mid - 1);
-        // Assign right subtrees as the same function called on right subranges...
-		root->right = sortedArrayToBST(nums, mid + 1, end);
-        // Return the root node
-		return root;
+
+private:
+    // Helper function to convert a subrange of the array into a BST
+    TreeNode* sortedArrayToBST(vector<int>& nums, int beg, int end) {
+        // Base condition: if the starting index is greater than the ending index, return NULL
+        if (beg > end)
+            return NULL;
+
+        // Find the middle element of the current subrange
+        int mid = (beg + end) / 2;
+
+        // Create a new tree node with the middle element
+        TreeNode* root = new TreeNode(nums[mid]);
+
+        // Recursively construct the left subtree using the left subrange
+        root->left = sortedArrayToBST(nums, beg, mid - 1);
+
+        // Recursively construct the right subtree using the right subrange
+        root->right = sortedArrayToBST(nums, mid + 1, end);
+
+        // Return the constructed tree node (root of this subrange)
+        return root;
     }
 };
