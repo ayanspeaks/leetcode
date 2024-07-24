@@ -12,36 +12,28 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> finalvector;
-         if(root==NULL)
-        {
-            return finalvector;
-        }
-        vector<int> levelvector1val;
-        vector<TreeNode*> levelvector1poi;
-        levelvector1val.push_back(root->val);
-        levelvector1poi.push_back(root);
-        while(levelvector1poi.size()>0)
-        {
-            finalvector.push_back(levelvector1val);
-            vector<int> levelvector2val;
-            vector<TreeNode*> levelvector2poi;
-            for(int i=0;i<levelvector1poi.size();i++)
-            {
-                if(levelvector1poi[i]->left!=NULL)
-                {
-                    levelvector2val.push_back(levelvector1poi[i]->left->val);
-                    levelvector2poi.push_back(levelvector1poi[i]->left);
-                }
-                if(levelvector1poi[i]->right!=NULL)
-                {
-                    levelvector2val.push_back(levelvector1poi[i]->right->val);
-                    levelvector2poi.push_back(levelvector1poi[i]->right);
-                }
+        vector<vector<int>> result; // Final vector to store level order traversal
+        if (root == nullptr) return result; // If root is null, return an empty vector
+
+        queue<TreeNode*> q; // Queue to facilitate level order traversal
+        q.push(root); // Start with the root node
+
+        while (!q.empty()) {
+            int levelSize = q.size(); // Number of nodes at the current level
+            vector<int> currentLevel; // Vector to store node values at the current level
+
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode* node = q.front(); // Get the node at the front of the queue
+                q.pop(); // Remove the node from the queue
+                currentLevel.push_back(node->val); // Add the node's value to the current level vector
+
+                if (node->left) q.push(node->left); // If left child exists, add it to the queue
+                if (node->right) q.push(node->right); // If right child exists, add it to the queue
             }
-            levelvector1val=levelvector2val;
-            levelvector1poi=levelvector2poi;
+
+            result.push_back(currentLevel); // Add the current level vector to the final result
         }
-        return finalvector;
+
+        return result; // Return the final level order traversal
     }
 };
