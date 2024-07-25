@@ -1,36 +1,39 @@
+#include <vector>
+using namespace std;
+
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int n= nums.size();
-        int low = 0, high = n - 1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
+        int n = nums.size();  // Size of the array
+        int low = 0;          // Start of the search range
+        int high = n - 1;     // End of the search range
 
-            //if mid points the target
+        // Perform binary search
+        while (low <= high) {
+            int mid = (low + high) / 2; // Calculate mid
+
+            // If mid points to the target
             if (nums[mid] == target) return mid;
 
-            //if left part is sorted:
+            // If the left part is sorted
             if (nums[low] <= nums[mid]) {
+                // Check if the target is within the left part
                 if (nums[low] <= target && target <= nums[mid]) {
-                    //element exists:
-                    high = mid - 1;
+                    high = mid - 1; // Search in the left part
+                } else {
+                    low = mid + 1; // Search in the right part
                 }
-                else {
-                    //element does not exist:
-                    low = mid + 1;
-                }
-            }
-            else { //if right part is sorted:
+            } else { // If the right part is sorted
+                // Check if the target is within the right part
                 if (nums[mid] <= target && target <= nums[high]) {
-                    //element exists:
-                    low = mid + 1;
-                }
-                else {
-                    //element does not exist:
-                    high = mid - 1;
+                    low = mid + 1; // Search in the right part
+                } else {
+                    high = mid - 1; // Search in the left part
                 }
             }
         }
+
+        // Target not found
         return -1;
     }
 };
