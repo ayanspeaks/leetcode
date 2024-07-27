@@ -10,17 +10,21 @@
  * };
  */
 class Solution {
-public:
-    //inorder travesal
-    void inorder( TreeNode* root,vector<int> &nod){
-        if(!root) return;
-        inorder(root->left,nod);
-        nod.push_back(root->val);
-        inorder(root->right,nod);
+    int inorder(TreeNode* root, int& k) {
+        if (!root) return -1;
+        
+        // Traverse the left subtree
+        int left = inorder(root->left, k);
+        if (k == 0) return left;  // If k is 0 after left traversal, return the left result
+        
+        // Process the current node
+        if (--k == 0) return root->val;  // Decrease k and check if this is the k-th element
+        
+        // Traverse the right subtree
+        return inorder(root->right, k);
     }
+public:
     int kthSmallest(TreeNode* root, int k) {
-        vector<int> nod;
-        inorder(root,nod);
-        return nod[k-1];
+        return inorder(root, k);
     }
 };
