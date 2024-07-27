@@ -11,8 +11,8 @@ public:
         
         while (x > 0) {
             int r = x % 10; // Get the last digit of x
-            x = x / 10; // Remove the last digit from x
             rev = rev * 10 + r; // Append the digit to the reversed number
+             x = x / 10; // Remove the last digit from x
         }
         
         // Check if the reversed number is equal to the original number
