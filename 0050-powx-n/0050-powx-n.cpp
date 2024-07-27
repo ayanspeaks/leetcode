@@ -1,28 +1,29 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        // If n is negative, convert x to 1/x and use the absolute value of n
-        if(n < 0) {
+        // Use long long to handle the edge case when n is INT_MIN
+        long long N = n;
+
+        // If the exponent is negative, invert the base and make the exponent positive
+        if (N < 0) {
             x = 1 / x;
+            N = -N;
         }
-        
-        // Use long to handle the edge case of INT_MIN
-        long num = labs(n);
-        double pow = 1;  
-        
-        // Loop until num becomes zero
-        while(num) { // equivalent to while(num != 0)
-            // If the current exponent is odd, multiply the result by x
-            if(num & 1) { // equivalent to if((num & 1) != 0)
-                pow *= x;
+
+        double result = 1.0;
+
+        // Exponentiation by squaring
+        while (N) {
+            // If the current exponent is odd, multiply the result by the current base
+            if (N % 2 == 1) {
+                result *= x;
             }
             // Square the base
             x *= x;
-            // Right shift the exponent by 1
-            num >>= 1;
+            // Halve the exponent
+            N /= 2;
         }
-        
-        // Return the final result
-        return pow;
+
+        return result;
     }
 };
