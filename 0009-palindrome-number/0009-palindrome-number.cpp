@@ -6,13 +6,16 @@ public:
             return false;
         }
         
-        long long rev = 0;
-        int ori = x;
+        long long rev = 0; // Variable to store the reversed number
+        int ori = x; // Store the original number for comparison
+        
         while (x > 0) {
-            int r = x % 10;
-            x = x / 10;
-            rev = rev * 10 + r;
+            int r = x % 10; // Get the last digit of x
+            x = x / 10; // Remove the last digit from x
+            rev = rev * 10 + r; // Append the digit to the reversed number
         }
+        
+        // Check if the reversed number is equal to the original number
         return rev == ori;
     }
 };
