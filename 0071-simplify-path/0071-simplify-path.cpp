@@ -1,39 +1,40 @@
 class Solution {
 public:
     string simplifyPath(string path) {
+        stack<string> st; // Stack to keep track of directory names
+        string res; // Resultant simplified path
         
-        stack<string> st;
-        string res;
-        
-        for(int i = 0;  i<path.size(); ++i)
-        {
+        for(int i = 0;  i < path.size(); ++i) {
             if(path[i] == '/')    
-                continue;
+                continue; // Skip multiple slashes
             
-            string temp;
-            while(i < path.size() && path[i] != '/')
-            {
+            string temp; // Temporary string to store the current directory name
+            while(i < path.size() && path[i] != '/') {
                 temp += path[i];
                 ++i;
             }
-            if(temp == ".")
+            
+            if(temp == ".") {
+                // Current directory, so do nothing
                 continue;
-            else if(temp == "..")
-            {
+            } else if(temp == "..") {
+                // Parent directory, so pop from the stack if not empty
                 if(!st.empty())
                     st.pop();
-            }
-            else
+            } else {
+                // Regular directory name, push it onto the stack
                 st.push(temp);
+            }
         }
         
-        while(!st.empty())
-        {
+        // Construct the simplified path from the stack
+        while(!st.empty()) {
             res = "/" + st.top() + res;
             st.pop();
         }
         
-        if(res.size() == 0)
+        // If the resultant path is empty, it means the root directory
+        if(res.empty())
             return "/";
         
         return res;
