@@ -11,34 +11,32 @@
 class Solution {
 public:
     int pairSum(ListNode* head) {
-	ListNode* slow = head;
-	ListNode* fast = head;
-	int maxVal = 0;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        int maxVal = 0;
 
-	// Get middle of linked list
-	while(fast && fast -> next)
-	{
-		fast = fast -> next -> next;
-		slow = slow -> next;
-	}
+        // Get the middle of the linked list
+        while (fast && fast->next) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
 
-	// Reverse second part of linked list
-	ListNode *nextNode, *prev = NULL;
-	while (slow) {
-		nextNode = slow->next;
-		slow->next = prev;
-		prev = slow;
-		slow = nextNode;
-	}
+        // Reverse the second part of the linked list
+        ListNode *nextNode, *prev = NULL;
+        while (slow) {
+            nextNode = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
 
-	// Get max sum of pairs
-	while(prev)
-	{
-		maxVal = max(maxVal, head -> val + prev -> val);
-		prev = prev -> next;
-		head = head -> next;
-	}
+        // Calculate the maximum twin sum
+        while (prev) {
+            maxVal = max(maxVal, head->val + prev->val);
+            prev = prev->next;
+            head = head->next;
+        }
 
-	return maxVal;
-}
+        return maxVal;
+    }
 };
