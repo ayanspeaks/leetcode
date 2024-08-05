@@ -9,19 +9,23 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-         if (head == NULL || head->next == NULL)
+        // If the list is empty or has only one node, it cannot have a cycle.
+        if (head == NULL || head->next == NULL)
             return false;
-
-        ListNode *slow  = head;
-        ListNode *fast  = head;
-
+        // Initialize two pointers, slow and fast.
+        ListNode *slow = head;
+        ListNode *fast = head;
+        // Traverse the list with the two pointers.
+        // Fast pointer moves two steps at a time, slow pointer moves one step.
         while (fast->next && fast->next->next) {
             slow = slow->next;
             fast = fast->next->next;
-            if (slow == fast) {                      // there is a cycle
+            // If slow and fast pointers meet, there is a cycle.
+            if (slow == fast) {
                 return true;
             }
         }
-        return false; 
+        // If the loop exits, no cycle is detected.
+        return false;
     }
 };
