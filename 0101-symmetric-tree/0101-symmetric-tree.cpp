@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    // Helper function to compare two subtrees
     bool c(TreeNode* left, TreeNode* right) {
         // Base case: if either node is null, they must both be null to be symmetric
         if (!left || !right) {
@@ -23,6 +24,7 @@ public:
         return c(left->left, right->right) && c(left->right, right->left);
     }
     
+    // Main function to check if the tree is symmetric
     bool isSymmetric(TreeNode* root) {
         // A tree is symmetric if the left and right subtrees are mirror images
         return c(root, root);
