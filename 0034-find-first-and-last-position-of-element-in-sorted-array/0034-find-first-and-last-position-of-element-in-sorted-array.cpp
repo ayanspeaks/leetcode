@@ -1,6 +1,3 @@
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     int binarySearch(vector<int>& nums, int target, bool findFirst) {
