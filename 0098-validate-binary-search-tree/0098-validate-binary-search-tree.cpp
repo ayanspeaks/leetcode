@@ -9,20 +9,26 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution
-{
-    public:
-    TreeNode *prev = NULL;
+class Solution {
+public:
+    TreeNode* prev = nullptr;  // Pointer to track the previous node in in-order traversal
+
     bool isValidBST(TreeNode* root) {
-        
-        if(!root) return true;
-        
-        if(!isValidBST(root->left)) return false;
-        if(prev && root->val <= prev->val){
-            return false;
+        // Base case: an empty tree is a valid BST
+        if (!root) return true;
+
+        // Recursively check the left subtree
+        if (!isValidBST(root->left)) return false;
+
+        // Check the current node against the previous node
+        if (prev && root->val <= prev->val) {
+            return false;  // Not a valid BST
         }
+
+        // Update prev to the current node
         prev = root;
-        if(!isValidBST(root->right)) return false;
-        return true;
+
+        // Recursively check the right subtree
+        return isValidBST(root->right);
     }
 };
