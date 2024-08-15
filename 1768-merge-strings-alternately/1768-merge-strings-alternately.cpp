@@ -1,25 +1,20 @@
 class Solution {
 public:
     string mergeAlternately(string word1, string word2) {
-        int n = word1.size(); // Length of word1
-        int m = word2.size(); // Length of word2
-        string ans = ""; // Result string
-
-        // Merge characters alternately from both strings
-        for (int i = 0; i < n && i < m; ++i) {
-            ans += word1[i]; // Append character from word1
-            ans += word2[i]; // Append character from word2
+        string res = "";
+        int n = word1.size();
+        int m = word2.size();
+        for(int i = 0; i < n & i < m; i++){
+            res += word1[i];
+            res += word2[i];
         }
-
-        // If word1 is longer, append the remaining characters
-        if (n > m) {
-            ans += word1.substr(m);
+        if(n > m){
+            res += word1.substr(m);
         }
-        // If word2 is longer, append the remaining characters
-        else if (n < m) {
-            ans += word2.substr(n);
+        else if(n < m){
+            res += word2.substr(n);
         }
-
-        return ans; // Return the merged string
+        
+        return res;
     }
 };
