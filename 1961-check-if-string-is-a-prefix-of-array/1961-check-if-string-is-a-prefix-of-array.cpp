@@ -22,7 +22,7 @@ public:
           else if(sidx>=s.length() and temp<currstr.length())
           return false;
        }
-       if(sidx > s.length())
+       if(sidx >= s.length())
        return true;
         
        return false;
