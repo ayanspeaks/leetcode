@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int findKthNumber(int n, int k) {
+        int x = 1; 
+    
+    while (k > 1) 
+    {
+        
+        long count = 0; 
+        
+        for (long diff =1, cur=x; cur<=n; cur*= 10, diff*=10)
+        {
+            count += min(n - cur + 1, diff);
+            
+        }
+        
+        if (k > count)   
+        {
+            k = k - count;
+            
+            x++; 
+         
+        }
+        else
+        {
+            k--;
+            
+            x *= 10; 
+            
+        }
+        
+    }
+    
+    return x; 
+    }
+};
